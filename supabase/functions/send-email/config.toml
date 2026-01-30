@@ -1,0 +1,2 @@
+# Requires Authorization Bearer JWT (service role works)
+verify_jwt = true

@@ -1,0 +1,29 @@
+# Supabase CLI configuration
+# 1) Install Supabase CLI: https://supabase.com/docs/guides/cli
+# 2) Login: supabase login
+# 3) Link:  supabase link --project-ref YOUR_PROJECT_REF
+# 4) Apply migrations: supabase db push
+
+project_id = "YOUR_PROJECT_REF"
+
+[api]
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+port = 54323
+
+[inbucket]
+port = 54324
+
+[auth]
+enabled = true
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["http://localhost:3000"]

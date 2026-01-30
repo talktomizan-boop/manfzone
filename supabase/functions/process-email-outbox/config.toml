@@ -1,0 +1,2 @@
+# Cron invoked; secured by CRON_SECRET
+verify_jwt = false

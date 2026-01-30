@@ -1,0 +1,79 @@
+-- RLS Policy Templates (Production-Ready Examples)
+-- Use these templates when adding new tables to keep access scoped and secure.
+-- NOTE: This file is a reference and is NOT part of the migration chain.
+
+-- 1) User-owned rows: only the owner can read/write
+-- Assumes table has a user_id column referencing auth.users.id
+-- ALTER TABLE your_table ENABLE ROW LEVEL SECURITY;
+--
+-- CREATE POLICY "Users can view their rows"
+--   ON your_table FOR SELECT
+--   USING (auth.uid() = user_id);
+--
+-- CREATE POLICY "Users can insert their rows"
+--   ON your_table FOR INSERT
+--   WITH CHECK (auth.uid() = user_id);
+--
+-- CREATE POLICY "Users can update their rows"
+--   ON your_table FOR UPDATE
+--   USING (auth.uid() = user_id)
+--   WITH CHECK (auth.uid() = user_id);
+--
+-- CREATE POLICY "Users can delete their rows"
+--   ON your_table FOR DELETE
+--   USING (auth.uid() = user_id);
+
+-- 2) Public read, authenticated write (e.g., reviews)
+-- CREATE POLICY "Public can read"
+--   ON your_table FOR SELECT
+--   USING (true);
+--
+-- CREATE POLICY "Authenticated can write"
+--   ON your_table FOR INSERT
+--   WITH CHECK (auth.uid() IS NOT NULL);
+
+-- 3) Admin-only access (uses profiles.role = 'admin')
+-- CREATE POLICY "Admins only"
+--   ON your_table FOR ALL
+--   USING (
+--     EXISTS (
+--       SELECT 1 FROM profiles p
+--       WHERE p.id = auth.uid()
+--         AND p.role = 'admin'
+--         AND p.is_active = true
+--         AND p.deleted_at IS NULL
+--     )
+--   )
+--   WITH CHECK (
+--     EXISTS (
+--       SELECT 1 FROM profiles p
+--       WHERE p.id = auth.uid()
+--         AND p.role = 'admin'
+--         AND p.is_active = true
+--         AND p.deleted_at IS NULL
+--     )
+--   );
+
+-- 4) Scoped to tenant or organization (multi-tenant tables)
+-- Assumes table has organization_id and profiles has organization_id
+-- CREATE POLICY "Org members can access"
+--   ON your_table FOR ALL
+--   USING (
+--     EXISTS (
+--       SELECT 1 FROM profiles p
+--       WHERE p.id = auth.uid()
+--         AND p.organization_id = organization_id
+--     )
+--   )
+--   WITH CHECK (
+--     EXISTS (
+--       SELECT 1 FROM profiles p
+--       WHERE p.id = auth.uid()
+--         AND p.organization_id = organization_id
+--     )
+--   );
+
+-- 5) Read-only for authenticated users
+-- CREATE POLICY "Authenticated read"
+--   ON your_table FOR SELECT
+--   USING (auth.uid() IS NOT NULL);
