@@ -1,0 +1,107 @@
+@import url("./tokens/colors.css");
+@import url("./tokens/spacings.css");
+@import url("./tokens/typography.css");
+@import url("./tokens/decorations.css");
+@import url("./tokens/animations.css");
+
+@layer theme {
+  :root {
+    /* Typography */
+    --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-heading: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-subheading: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-caption: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-code: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+
+    /* Neutral Colors - Using Slate for professional, clean look */
+    --color-neutral-1: var(--slate-1);
+    --color-neutral-2: var(--slate-2);
+    --color-neutral-3: var(--slate-3);
+    --color-neutral-4: var(--slate-4);
+    --color-neutral-5: var(--slate-5);
+    --color-neutral-6: var(--slate-6);
+    --color-neutral-7: var(--slate-7);
+    --color-neutral-8: var(--slate-8);
+    --color-neutral-9: var(--slate-9);
+    --color-neutral-10: var(--slate-10);
+    --color-neutral-11: var(--slate-11);
+    --color-neutral-12: var(--slate-12);
+    --color-neutral-contrast: var(--slate-contrast);
+
+    /* Accent Colors - Using Cyan for soft blue eCommerce theme */
+    --color-accent-1: var(--cyan-1);
+    --color-accent-2: var(--cyan-2);
+    --color-accent-3: var(--cyan-3);
+    --color-accent-4: var(--cyan-4);
+    --color-accent-5: var(--cyan-5);
+    --color-accent-6: var(--cyan-6);
+    --color-accent-7: var(--cyan-7);
+    --color-accent-8: var(--cyan-8);
+    --color-accent-9: var(--cyan-9);
+    --color-accent-10: var(--cyan-10);
+    --color-accent-11: var(--cyan-11);
+    --color-accent-12: var(--cyan-12);
+    --color-accent-contrast: var(--cyan-contrast);
+
+    /* Error Colors - Using Red for alerts */
+    --color-error-1: var(--red-1);
+    --color-error-2: var(--red-2);
+    --color-error-3: var(--red-3);
+    --color-error-4: var(--red-4);
+    --color-error-5: var(--red-5);
+    --color-error-6: var(--red-6);
+    --color-error-7: var(--red-7);
+    --color-error-8: var(--red-8);
+    --color-error-9: var(--red-9);
+    --color-error-10: var(--red-10);
+    --color-error-11: var(--red-11);
+    --color-error-12: var(--red-12);
+    --color-error-contrast: var(--red-contrast);
+
+    /* Success Colors - Using Green for confirmation */
+    --color-success-1: var(--green-1);
+    --color-success-2: var(--green-2);
+    --color-success-3: var(--green-3);
+    --color-success-4: var(--green-4);
+    --color-success-5: var(--green-5);
+    --color-success-6: var(--green-6);
+    --color-success-7: var(--green-7);
+    --color-success-8: var(--green-8);
+    --color-success-9: var(--green-9);
+    --color-success-10: var(--green-10);
+    --color-success-11: var(--green-11);
+    --color-success-12: var(--green-12);
+    --color-success-contrast: var(--green-contrast);
+
+    /* Warning Colors - Using Amber */
+    --color-warning-1: var(--amber-1);
+    --color-warning-2: var(--amber-2);
+    --color-warning-3: var(--amber-3);
+    --color-warning-4: var(--amber-4);
+    --color-warning-5: var(--amber-5);
+    --color-warning-6: var(--amber-6);
+    --color-warning-7: var(--amber-7);
+    --color-warning-8: var(--amber-8);
+    --color-warning-9: var(--amber-9);
+    --color-warning-10: var(--amber-10);
+    --color-warning-11: var(--amber-11);
+    --color-warning-12: var(--amber-12);
+    --color-warning-contrast: var(--amber-contrast);
+
+    /* Semantic Application Colors */
+    --color-background: #ffffff;
+    --color-foreground: var(--color-neutral-12);
+    --color-muted: var(--color-neutral-3);
+    --color-muted-foreground: var(--color-neutral-11);
+    --color-border: var(--color-neutral-6);
+    --color-input-border: var(--color-neutral-7);
+    --color-ring: var(--color-accent-7);
+
+    /* Component-specific */
+    --color-card-bg: #ffffff;
+    --color-card-border: var(--color-neutral-5);
+    --color-hover-bg: var(--color-neutral-2);
+    --color-active-bg: var(--color-neutral-3);
+  }
+}

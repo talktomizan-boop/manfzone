@@ -1,0 +1,38 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.iconWrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Keep the brand mark true-to-design; avoid forcing a gradient background */
+  background: transparent;
+  box-shadow: none;
+  position: relative;
+}
+
+.iconImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* No glow/shadow that can reduce clarity on different backgrounds */
+  filter: none;
+}
+
+.text {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.compact .text {
+  display: none;
+}
+
+

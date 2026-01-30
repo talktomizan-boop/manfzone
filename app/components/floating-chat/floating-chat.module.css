@@ -1,0 +1,80 @@
+.root {
+  position: fixed;
+  right: 16px;
+  /* Lift the button so it doesn't cover footer content (see screenshot). */
+  bottom: 96px;
+  z-index: 50;
+}
+
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-neutral-4);
+  background: var(--color-accent-9);
+  color: white;
+  box-shadow: var(--shadow-4);
+  cursor: pointer;
+}
+
+.fab:focus-visible {
+  outline: 2px solid var(--color-accent-7);
+  outline-offset: 2px;
+}
+
+.panel {
+  position: absolute;
+  right: 0;
+  bottom: 62px;
+  width: auto;
+  padding: 10px;
+  border-radius: var(--radius-3);
+  border: 1px solid var(--color-neutral-4);
+  background: var(--color-neutral-2);
+  box-shadow: var(--shadow-4);
+  display: flex;
+  gap: 10px;
+}
+
+.itemWhatsapp,
+.itemMessenger {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+}
+
+.itemWhatsapp {
+  background: #25D366;
+}
+
+.itemMessenger {
+  background: #0084FF;
+}
+
+.itemWhatsapp:hover,
+.itemMessenger:hover {
+  transform: translateY(-1px);
+}
+
+.itemWhatsapp:focus-visible,
+.itemMessenger:focus-visible {
+  outline: 2px solid var(--color-accent-7);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .root {
+    bottom: 84px;
+    right: 12px;
+  }
+}

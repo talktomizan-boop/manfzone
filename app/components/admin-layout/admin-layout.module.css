@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-neutral-2);
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: var(--color-neutral-1);
+  border-right: 1px solid var(--color-neutral-6);
+  padding: var(--space-6);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent-9);
+  margin-bottom: var(--space-8);
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.navItem {
+  margin: 0;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-2);
+  color: var(--color-neutral-11);
+  text-decoration: none;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.navLink:hover {
+  background: var(--color-neutral-4);
+  color: var(--color-neutral-12);
+}
+
+.navLink.active {
+  background: var(--color-accent-9);
+  color: var(--color-accent-contrast);
+}
+
+.navLink svg {
+  width: 20px;
+  height: 20px;
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-y: auto;
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--color-neutral-11);
+  margin: 0;
+}
+
+.content {
+  background: var(--color-neutral-1);
+  border-radius: var(--radius-3);
+  padding: var(--space-6);
+  border: 1px solid var(--color-neutral-6);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid var(--color-neutral-6);
+  }
+
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .navLink {
+    flex-direction: column;
+    gap: var(--space-1);
+    font-size: 0.875rem;
+    padding: var(--space-2);
+  }
+}
