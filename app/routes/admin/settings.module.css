@@ -1,0 +1,178 @@
+.statusBanner {
+  padding: var(--space-4);
+  border-radius: var(--radius-2);
+  margin-bottom: var(--space-6);
+  text-align: center;
+  font-weight: 500;
+}
+
+.statusBanner.success {
+  background: var(--color-success-3);
+  color: var(--color-success-11);
+  border: 1px solid var(--color-success-6);
+}
+
+.statusBanner.error {
+  background: var(--color-error-3);
+  color: var(--color-error-11);
+  border: 1px solid var(--color-error-6);
+}
+
+.tabsList {
+  margin-bottom: var(--space-6);
+}
+
+.tabContent {
+  padding-top: var(--space-6);
+}
+
+.settingsSection {
+  background: var(--color-neutral-2);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-3);
+  padding: var(--space-6);
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-2) 0;
+  color: var(--color-neutral-12);
+}
+
+.sectionDescription {
+  font-size: 0.875rem;
+  color: var(--color-neutral-9);
+  margin: 0 0 var(--space-6) 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.formField label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-neutral-11);
+}
+
+.colorInput {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.colorPicker {
+  width: 60px;
+  height: 40px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.formActions {
+  display: flex;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-neutral-6);
+}
+
+.featureToggles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.toggleItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-2);
+}
+
+.toggleInfo h4 {
+  margin: 0 0 var(--space-1) 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-neutral-12);
+}
+
+.toggleInfo p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-neutral-9);
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-neutral-6);
+  transition: 0.3s;
+  border-radius: 26px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--color-accent-9);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 0 2px var(--color-accent-8);
+}
+
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toggleItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+}

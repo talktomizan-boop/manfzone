@@ -1,0 +1,189 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.searchBox {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.searchBox svg {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--color-neutral-9);
+}
+
+.searchInput {
+  padding-left: var(--space-8);
+  width: 100%;
+}
+
+.formCard {
+  background: var(--color-neutral-2);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-3);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-4) 0;
+  color: var(--color-neutral-12);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.formField label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-neutral-11);
+}
+
+.select {
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-2);
+  background: var(--color-neutral-1);
+  color: var(--color-neutral-12);
+}
+
+.checkboxGroup {
+  display: flex;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--color-neutral-11);
+  cursor: pointer;
+}
+
+.formActions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead tr {
+  border-bottom: 2px solid var(--color-neutral-6);
+}
+
+.table th {
+  text-align: left;
+  padding: var(--space-3);
+  font-weight: 600;
+  color: var(--color-neutral-11);
+  font-size: 0.875rem;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid var(--color-neutral-5);
+}
+
+.table tbody tr:hover {
+  background: var(--color-neutral-2);
+}
+
+.table td {
+  padding: var(--space-3);
+  color: var(--color-neutral-11);
+}
+
+.categoryName {
+  font-weight: 500;
+  color: var(--color-neutral-12);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.actionButton {
+  padding: var(--space-2);
+  border: none;
+  background: var(--color-neutral-4);
+  color: var(--color-neutral-11);
+  border-radius: var(--radius-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.actionButton:hover {
+  background: var(--color-neutral-5);
+  color: var(--color-neutral-12);
+}
+
+.deleteButton:hover {
+  background: var(--color-error-4);
+  color: var(--color-error-11);
+}
+
+.loading {
+  text-align: center;
+  color: var(--color-neutral-9);
+  padding: var(--space-8);
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--color-neutral-9);
+  padding: var(--space-8);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchBox {
+    max-width: 100%;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table {
+    font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,265 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-neutral-1);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  margin: 0 0 20px;
+  color: var(--color-neutral-11);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: start;
+  }
+}
+
+.card {
+  padding: 16px;
+  border-radius: var(--radius-3);
+  border: 1px solid var(--color-neutral-4);
+  background: var(--color-neutral-2);
+}
+
+.lead {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.muted {
+  color: var(--color-neutral-11);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: var(--radius-2);
+  background: var(--color-accent-9);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.linkButtonSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--color-neutral-5);
+  background: transparent;
+  color: var(--color-neutral-12);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.main {
+  min-width: 0;
+}
+
+.summary {
+  position: sticky;
+  top: 16px;
+}
+
+.summaryCard {
+  padding: 16px;
+  border-radius: var(--radius-3);
+  border: 1px solid var(--color-neutral-4);
+  background: var(--color-neutral-2);
+}
+
+.summaryCard + .summaryCard {
+  margin-top: 12px;
+}
+
+.summaryTitle {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summaryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summaryLeft {
+  display: flex;
+  gap: 10px;
+}
+
+.summaryImage {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-2);
+  object-fit: cover;
+  background: var(--color-neutral-3);
+}
+
+.summaryName {
+  font-weight: 600;
+}
+
+.summaryPrice {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.summaryTotals {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-neutral-4);
+  display: grid;
+  gap: 8px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-neutral-11);
+}
+
+.totalRowStrong {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 800;
+}
+
+.stepper {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.step,
+.stepActive {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--color-neutral-4);
+  background: var(--color-neutral-2);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stepActive {
+  border-color: var(--color-accent-7);
+  background: var(--color-accent-3);
+}
+
+.form {
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-3);
+  background: var(--color-neutral-2);
+  padding: 16px;
+}
+
+.section {
+  display: grid;
+  gap: 12px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.notice {
+  padding: 12px;
+  border-radius: var(--radius-2);
+  background: var(--color-neutral-3);
+  color: var(--color-neutral-11);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fieldWide {
+    grid-column: span 2;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.fieldWide {
+  display: grid;
+  gap: 6px;
+}
+
+.sectionActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.radioGroup {
+  display: grid;
+  gap: 10px;
+}
+
+.radioItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: var(--radius-2);
+  border: 1px solid var(--color-neutral-4);
+  background: var(--color-neutral-1);
+}
+
+.error {
+  padding: 12px;
+  border-radius: var(--radius-2);
+  background: var(--color-error-3);
+  color: var(--color-error-11);
+  margin-bottom: 12px;
+}

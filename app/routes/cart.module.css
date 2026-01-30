@@ -1,0 +1,300 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-neutral-1);
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-6) 0;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.title {
+  font-size: var(--font-size-7);
+  font-weight: 700;
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-6);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-9) var(--space-4);
+  text-align: center;
+}
+
+.emptyIcon {
+  color: var(--color-neutral-8);
+  margin-bottom: var(--space-4);
+}
+
+.emptyTitle {
+  font-size: var(--font-size-6);
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-2);
+}
+
+.emptyText {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-11);
+  margin: 0 0 var(--space-5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.subtitle {
+  color: var(--color-neutral-11);
+  font-size: var(--font-size-2);
+  margin: var(--space-2) 0 0 0;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.wishlistCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.wishlistActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.addToCartButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.removeButton {
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-9);
+  text-align: center;
+}
+
+.emptyCart svg {
+  color: var(--color-neutral-8);
+  margin-bottom: var(--space-4);
+}
+
+.emptyCart h2 {
+  font-size: var(--font-size-5);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.emptyCart p {
+  color: var(--color-neutral-11);
+  margin: 0 0 var(--space-5) 0;
+}
+
+/* =====================================================
+   Cart layout styles (were referenced in cart.tsx but missing)
+   Added to enable the existing cart UI to render correctly.
+   ===================================================== */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cartItem {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--color-neutral-5);
+  background: var(--color-neutral-2);
+  border-radius: var(--radius-3);
+}
+
+.itemImageWrap {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-2);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--color-neutral-3);
+  border: 1px solid var(--color-neutral-5);
+}
+
+.itemImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.itemDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.itemName {
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  text-decoration: none;
+}
+
+.itemName:hover {
+  text-decoration: underline;
+}
+
+.itemMeta {
+  color: var(--color-neutral-11);
+  font-size: var(--font-size-2);
+}
+
+.qtyRow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.qtyButton {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-neutral-6);
+  background: var(--color-neutral-1);
+  border-radius: var(--radius-2);
+  cursor: pointer;
+}
+
+.qtyValue {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-neutral-12);
+}
+
+.itemTotals {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.lineTotal {
+  font-weight: 700;
+  color: var(--color-neutral-12);
+}
+
+.removeIconButton {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-neutral-6);
+  background: var(--color-neutral-1);
+  border-radius: var(--radius-2);
+  cursor: pointer;
+}
+
+.cartActionsRow {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-2);
+}
+
+.summary {
+  border: 1px solid var(--color-neutral-5);
+  background: var(--color-neutral-2);
+  border-radius: var(--radius-3);
+  padding: var(--space-4);
+  position: sticky;
+  top: var(--space-6);
+}
+
+.summaryTitle {
+  margin: 0 0 var(--space-4) 0;
+  font-size: var(--font-size-4);
+  font-weight: 700;
+  color: var(--color-neutral-12);
+}
+
+.summaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  color: var(--color-neutral-11);
+}
+
+.summaryRowTotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0 0 0;
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--color-neutral-5);
+  font-weight: 700;
+  color: var(--color-neutral-12);
+}
+
+.summaryCta {
+  display: block;
+  margin-top: var(--space-4);
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+}

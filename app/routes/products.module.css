@@ -1,0 +1,311 @@
+.page {
+  min-height: 100vh;
+  background: var(--color-neutral-1);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.subtitle {
+  color: var(--color-neutral-11);
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--space-6);
+}
+
+.sidebar {
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-4);
+  padding: var(--space-5);
+  height: fit-content;
+  position: sticky;
+  top: calc(var(--space-6) + 80px);
+}
+
+.filterSection {
+  margin-bottom: var(--space-6);
+}
+
+.filterSection:last-child {
+  margin-bottom: 0;
+}
+
+.filterTitle {
+  font-size: var(--font-size-2);
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.filterList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.filterItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.main {
+  min-width: 0;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-4);
+}
+
+.resultCount {
+  color: var(--color-neutral-11);
+  font-size: var(--font-size-1);
+}
+
+.searchBox {
+  flex: 1;
+  max-width: 360px;
+  margin: 0 var(--space-4);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-2);
+  background: var(--color-neutral-2);
+  color: var(--color-neutral-12);
+}
+
+.sortSelect {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-3);
+  font-size: var(--font-size-1);
+  background: var(--color-neutral-1);
+  color: var(--color-neutral-12);
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--space-9);
+  color: var(--color-neutral-10);
+}
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: var(--space-7);
+}
+
+.pageTitle {
+  font: var(--font-display);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-3) 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.pageDescription {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-11);
+  margin: 0;
+}
+
+.dealCategories {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.dealCategory {
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-6);
+  border-radius: var(--radius-5);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-neutral-12);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.dealCategory:hover {
+  background: var(--color-accent-3);
+  border-color: var(--color-accent-7);
+  color: var(--color-accent-11);
+}
+
+.flashSaleBanner {
+  background: linear-gradient(135deg, var(--color-accent-4), var(--color-accent-6));
+  border-radius: var(--radius-5);
+  padding: var(--space-7) var(--space-6);
+  margin-bottom: var(--space-7);
+  text-align: center;
+}
+
+.flashSaleContent h2 {
+  font: var(--font-heading);
+  color: var(--color-accent-12);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.flashSaleContent p {
+  color: var(--color-accent-11);
+  font-size: var(--font-size-3);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.flashSaleTimer {
+  font-size: var(--font-size-4);
+  color: var(--color-accent-12);
+  font-weight: 600;
+}
+
+.newArrivalsBanner {
+  background: linear-gradient(135deg, var(--color-neutral-2), var(--color-neutral-4));
+  border-radius: var(--radius-5);
+  padding: var(--space-7) var(--space-6);
+  margin-bottom: var(--space-7);
+  text-align: center;
+}
+
+.bannerContent h2 {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: var(--space-3) 0 var(--space-2) 0;
+}
+
+.bannerContent p {
+  color: var(--color-neutral-11);
+  font-size: var(--font-size-2);
+  margin: 0;
+}
+
+.productsSection {
+  margin-bottom: var(--space-8);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.sectionHeader h2 {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--space-9);
+  color: var(--color-neutral-10);
+}
+
+.emptyState svg {
+  color: var(--color-neutral-8);
+  margin-bottom: var(--space-4);
+}
+
+.emptyState h3 {
+  font-size: var(--font-size-4);
+  color: var(--color-neutral-11);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.emptyState p {
+  color: var(--color-neutral-10);
+  margin: 0 0 var(--space-5) 0;
+}
+
+.ctaSection {
+  text-align: center;
+  padding: var(--space-8) var(--space-6);
+  background: var(--color-neutral-2);
+  border-radius: var(--radius-5);
+  margin-top: var(--space-8);
+}
+
+.ctaSection h3 {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.ctaSection p {
+  color: var(--color-neutral-11);
+  margin: 0 0 var(--space-5) 0;
+}
+
+@media (max-width: 968px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+  
+  .pageTitle {
+    font-size: var(--font-size-6);
+  }
+  
+  .dealCategories {
+    flex-direction: column;
+  }
+}
