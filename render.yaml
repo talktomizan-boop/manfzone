@@ -1,0 +1,58 @@
+services:
+  - type: web
+    name: manaf-zone
+    runtime: node
+    plan: free
+    autoDeploy: true
+    buildCommand: npm install --no-audit --no-fund && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SITE_NAME
+        value: Manaf Zone
+      - key: SITE_URL
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: APP_VERSION
+        sync: false
+      - key: EMAIL_PROVIDER
+        value: supabase_resend
+      - key: EMAIL_FROM
+        value: no-reply@manafzone.com
+      # Observability (Sentry)
+      - key: VITE_SENTRY_DSN
+        sync: false
+      - key: VITE_SENTRY_ENVIRONMENT
+        value: production
+      - key: VITE_SENTRY_TRACES_SAMPLE_RATE
+        value: "0.1"
+      - key: VITE_SENTRY_RELEASE
+        sync: false
+      # Smoke tests / deployment validation
+      - key: SMOKE_TEST_SECRET
+        sync: false
+      - key: SMOKE_TEST_COUPON_CODE
+        sync: false
+      - key: SMOKE_TEST_NEWSLETTER
+        value: "true"
+      - key: TEST_EMAIL
+        sync: false
+      - key: TEST_PASSWORD
+        sync: false
+      # Optional SMTP fallback (only if EMAIL_PROVIDER=smtp)
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
