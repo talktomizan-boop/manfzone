@@ -1,5 +1,5 @@
 import type { Route } from "./+types/healthz";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
 
 /**
  * Simple deployment validation endpoint.

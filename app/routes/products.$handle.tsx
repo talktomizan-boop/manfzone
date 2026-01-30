@@ -6,8 +6,8 @@ import { Footer } from '~/components/footer/footer';
 import { Button } from '~/components/ui/button/button';
 import { Badge } from '~/components/ui/badge/badge';
 import { ProductCard } from '~/components/product-card/product-card';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
-import { redirectToLogin } from '~/lib/redirect.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
+import { redirectToLogin } from '~/lib/redirect';
 import type { Route } from './+types/products.$handle';
 import styles from './product-detail.module.css';
 

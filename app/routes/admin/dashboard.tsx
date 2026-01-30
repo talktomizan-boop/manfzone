@@ -11,8 +11,8 @@ import {
   Info,
 } from "lucide-react";
 import type { Route } from "./+types/dashboard";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
-import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
+import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect";
 import styles from "./dashboard.module.css";
 
 export function meta({}: Route.MetaArgs) {

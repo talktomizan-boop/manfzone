@@ -1,8 +1,8 @@
 import { useFetcher } from 'react-router';
 import { AdminLayout } from '~/components/admin-layout/admin-layout';
 import type { Route } from './+types/notifications';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
-import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
+import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './notifications.module.css';
 
 export function meta({}: Route.MetaArgs) {

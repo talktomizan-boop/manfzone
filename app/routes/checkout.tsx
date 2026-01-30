@@ -6,9 +6,9 @@ import { Button } from '~/components/ui/button/button';
 import { Input } from '~/components/ui/input/input';
 import { Label } from '~/components/ui/label/label';
 import type { Route } from './+types/checkout';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
-import { redirectWithHeaders } from '~/lib/redirect.server';
-import { getSupabaseServiceClient } from '~/lib/supabase.service.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
+import { redirectWithHeaders } from '~/lib/redirect';
+import { getSupabaseServiceClient } from '~/lib/supabase.service';
 import {
   CART_SESSION_COOKIE,
   CART_SESSION_MAX_AGE,
@@ -16,8 +16,8 @@ import {
   getCookie,
   getExistingCart,
   getCartItemsForCheckout,
-} from '~/lib/cart.server';
-import { renderInvoiceEmail, renderOrderConfirmationEmail, sendEmail } from '~/lib/email.server';
+} from '~/lib/cart';
+import { renderInvoiceEmail, renderOrderConfirmationEmail, sendEmail } from '~/lib/email';
 import { env } from '~/config/environment';
 import styles from './checkout.module.css';
 

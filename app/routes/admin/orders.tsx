@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect.server";
+import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect";
 import { AdminLayout } from "~/components/admin-layout/admin-layout";
 import { Button } from "~/components/ui/button/button";
 import { Input } from "~/components/ui/input/input";
@@ -7,7 +7,7 @@ import { Badge } from "~/components/ui/badge/badge";
 import { Search, Eye, Package, X, Check } from "lucide-react";
 import type { Route } from "./+types/orders";
 import { createSupabaseClient } from "~/lib/supabase.client";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
 import type { Order } from "~/types/database.types";
 import styles from "./orders.module.css";
 

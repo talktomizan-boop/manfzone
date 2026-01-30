@@ -12,7 +12,7 @@ import { Badge } from '~/components/ui/badge/badge';
 import type { Route } from './+types/track-order';
 import styles from './login.module.css';
 import { Package, Search, CheckCircle, Truck, Home } from 'lucide-react';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
 
 export function meta() {
   return [

@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
 import type { Route } from './+types/categories';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
 import styles from './categories.module.css';
 
 export function meta({}: Route.MetaArgs) {
