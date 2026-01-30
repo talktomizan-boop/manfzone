@@ -1,5 +1,5 @@
 import type { Route } from "./+types/session";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { supabase, headers } = createSupabaseServerClient(request);

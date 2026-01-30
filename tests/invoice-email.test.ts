@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { renderInvoiceEmail } from '~/lib/email.server';
+import { renderInvoiceEmail } from '~/lib/email';
 
 describe('invoice email rendering', () => {
   it('includes required invoice fields', () => {

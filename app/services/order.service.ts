@@ -299,13 +299,15 @@ export async function approveRefund(params: {
     if (!refund) throw new Error('Refund request not found');
 
     // Enhanced validations
-    if ((refund as any).status !== 'pending') {
+    const refundStatus = (refund as any).status ?? 'pending';
+    if (refundStatus !== 'pending') {
       throw new Error('Refund must be pending to approve');
     }
     if (!Number.isFinite(params.approvedAmount) || params.approvedAmount <= 0) {
       throw new Error('Approved amount must be greater than 0');
     }
-    const requested = Number((refund as any).requested_amount || 0);
+    const requestedRaw = (refund as any).requested_amount;
+    const requested = Number.isFinite(Number(requestedRaw)) ? Number(requestedRaw) : params.approvedAmount;
     if (params.approvedAmount > requested) {
       throw new Error('Approved amount cannot exceed requested amount');
     }
@@ -421,7 +423,8 @@ export async function rejectRefund(params: {
     if (!refund) throw new Error('Refund request not found');
 
     // Enhanced validations
-    if ((refund as any).status !== 'pending') {
+    const refundStatus = (refund as any).status ?? 'pending';
+    if (refundStatus !== 'pending') {
       throw new Error('Refund must be pending to reject');
     }
 

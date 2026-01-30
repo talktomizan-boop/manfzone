@@ -16,7 +16,7 @@ import styles from './home.module.css';
 import { ArrowRight, TruckIcon, Shield, HeadphonesIcon, CreditCard, Star } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import React from 'react';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
 
 export async function loader({ request }: Route.LoaderArgs) {
   try {

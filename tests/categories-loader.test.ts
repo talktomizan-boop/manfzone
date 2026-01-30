@@ -33,7 +33,7 @@ describe('categories page loader', () => {
     } as any;
 
     vi.resetModules();
-    vi.doMock('~/lib/supabase.server', () => ({
+    vi.doMock('~/lib/supabase', () => ({
       createSupabaseServerClient: () => ({ supabase }),
     }));
 

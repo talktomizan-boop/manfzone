@@ -1,6 +1,6 @@
 import type { Route } from "./+types/invoice-preview";
-import { getSupabaseServiceClient } from "~/lib/supabase.service.server";
-import { renderInvoiceEmail } from "~/lib/email.server";
+import { getSupabaseServiceClient } from "~/lib/supabase.service";
+import { renderInvoiceEmail } from "~/lib/email";
 
 /**
  * Secure invoice HTML preview endpoint for automated smoke tests and deployment verification.

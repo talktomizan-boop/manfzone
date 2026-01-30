@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect.server";
+import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect";
 import { AdminLayout } from "~/components/admin-layout/admin-layout";
 import { Button } from "~/components/ui/button/button";
 import { Input } from "~/components/ui/input/input";
 import { Badge } from "~/components/ui/badge/badge";
 import type { Route } from "./+types/refunds";
 import { createSupabaseClient } from "~/lib/supabase.client";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
 import { approveRefund, rejectRefund } from "~/services/order.service";
 import styles from "./refunds.module.css";
 

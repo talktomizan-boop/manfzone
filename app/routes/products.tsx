@@ -4,7 +4,7 @@ import { Footer } from "~/components/footer/footer";
 import { ProductCard } from "~/components/product-card/product-card";
 import { Checkbox } from "~/components/ui/checkbox/checkbox";
 import { Label } from "~/components/ui/label/label";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
 import { useNavigate, useSearchParams } from "react-router";
 import styles from "./products.module.css";
 

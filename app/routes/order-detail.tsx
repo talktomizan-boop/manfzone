@@ -2,8 +2,8 @@ import { Link } from 'react-router';
 import type { Route } from './+types/order-detail';
 import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
-import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
+import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './order-detail.module.css';
 
 export function meta({}: Route.MetaArgs) {

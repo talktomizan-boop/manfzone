@@ -4,7 +4,7 @@ import { Button } from "~/components/ui/button/button";
 import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { BrandLogo } from "~/components/brand-logo/brand-logo";
-import { createSupabaseServerClient } from "~/lib/supabase.server";
+import { createSupabaseServerClient } from "~/lib/supabase";
 import { env } from "~/config/environment";
 import styles from "./login.module.css";
 

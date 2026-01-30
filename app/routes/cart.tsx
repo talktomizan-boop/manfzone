@@ -5,7 +5,7 @@ import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
 import { Button } from '~/components/ui/button/button';
 import type { Route } from './+types/cart';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
 import styles from './cart.module.css';
 
 export function meta({}: Route.MetaArgs) {

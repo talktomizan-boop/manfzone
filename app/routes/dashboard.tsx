@@ -2,8 +2,8 @@ import { Link } from 'react-router';
 import type { Route } from './+types/dashboard';
 import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
-import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
+import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './dashboard.module.css';
 
 export function meta({}: Route.MetaArgs) {

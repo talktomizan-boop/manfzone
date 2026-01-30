@@ -15,7 +15,7 @@
 
 // NOTE: This service is used by both client components and server loaders.
 // React Router treats "*.client.*" modules as client-only and will stub them out on the server.
-// Therefore: server code must pass an explicit Supabase client (from supabase.server.ts).
+// Therefore: server code must pass an explicit Supabase client (from supabase.ts).
 import { supabase as browserSupabase } from '~/lib/supabase.client';
 import { handleError } from '~/utils/error-handler';
 

@@ -9,7 +9,7 @@ import { Footer } from '~/components/footer/footer';
 import { ProductCard } from '~/components/product-card/product-card';
 import { Badge } from '~/components/ui/badge/badge';
 import { Button } from '~/components/ui/button/button';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
 import type { Route } from './+types/deals';
 import styles from './products.module.css';
 import { Tag, TrendingDown, Clock, Percent } from 'lucide-react';

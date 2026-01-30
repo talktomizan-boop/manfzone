@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useFetcher } from 'react-router';
 import { AdminLayout } from '~/components/admin-layout/admin-layout';
 import type { Route } from './+types/settings';
-import { createSupabaseServerClient } from '~/lib/supabase.server';
-import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect.server';
+import { createSupabaseServerClient } from '~/lib/supabase';
+import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import { Button } from '~/components/ui/button/button';
 import styles from './settings.module.css';
 

@@ -1,5 +1,5 @@
 import type { Route } from "./+types/order-summary";
-import { getSupabaseServiceClient } from "~/lib/supabase.service.server";
+import { getSupabaseServiceClient } from "~/lib/supabase.service";
 
 /**
  * Secure JSON order summary endpoint for automated smoke tests.
