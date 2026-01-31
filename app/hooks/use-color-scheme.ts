@@ -59,6 +59,10 @@ export function useSafeColorScheme() {
       if (intervalId) window.clearInterval(intervalId);
       unsubscribe?.();
     };
+    const api = getColorSchemeApi();
+    if (!api) return;
+    setState(api.currentState);
+    return api.subscribe((next) => setState(next));
   }, []);
 
   const api = getColorSchemeApi();
