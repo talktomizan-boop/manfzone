@@ -3,6 +3,7 @@ import type { Route } from './+types/dashboard';
 import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
 import { createSupabaseServerClient } from '~/lib/supabase';
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './dashboard.module.css';
 
@@ -31,8 +32,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (!profile) return redirectWithHeaders(headers, '/');
 
+  const role = await resolveUserRole(supabase, session.user);
   // Admins should use the admin dashboard.
-  if (['admin', 'super_admin'].includes(profile.role)) {
+  if (isAdminRole(role)) {
     return redirectWithHeaders(headers, '/admin/dashboard');
   }
 
