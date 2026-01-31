@@ -9,7 +9,7 @@
  * - A/B testing
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import { handleServiceError } from '~/utils/error-handler';
 
 // =====================================================
@@ -73,6 +73,7 @@ export async function trackFunnelEvent(params: {
   referrer?: string;
 }): Promise<FunnelEvent> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('funnel_events')
       .insert({
@@ -105,6 +106,7 @@ export async function getConversionFunnel(params?: {
   conversion_rate: number;
 }> {
   try {
+    const supabase = createSupabaseClient();
     let query = supabase.from('funnel_events').select('event_type');
 
     if (params?.startDate) {
@@ -156,6 +158,7 @@ export async function getProductPerformance(
   endDate: string
 ): Promise<ProductPerformanceStats | null> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('product_performance_stats')
       .select('*')
@@ -180,6 +183,7 @@ export async function getTopPerformingProducts(params?: {
   endDate?: string;
 }): Promise<ProductPerformanceStats[]> {
   try {
+    const supabase = createSupabaseClient();
     const sortBy = params?.sortBy || 'revenue';
     let query = supabase
       .from('product_performance_stats')
@@ -214,6 +218,7 @@ export async function getSalesMetrics(params?: {
   endDate?: string;
 }): Promise<SalesMetrics[]> {
   try {
+    const supabase = createSupabaseClient();
     let query = supabase
       .from('sales_metrics')
       .select('*')
@@ -237,6 +242,7 @@ export async function getSalesMetrics(params?: {
 
 export async function getDailySalesOverview(date: string): Promise<SalesMetrics | null> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('sales_metrics')
       .select('*')
@@ -256,6 +262,7 @@ export async function calculateRevenueByPeriod(params: {
   groupBy?: 'day' | 'week' | 'month';
 }): Promise<Array<{ period: string; revenue: number; orders: number }>> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('sales_metrics')
       .select('metric_date, total_revenue, total_orders')
@@ -283,6 +290,7 @@ export async function calculateRevenueByPeriod(params: {
 
 export async function getCustomerLifetimeValue(userId: string): Promise<number> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('orders')
       .select('total_amount')
@@ -310,6 +318,7 @@ export async function getCustomerSegmentPerformance(): Promise<
   }>
 > {
   try {
+    const supabase = createSupabaseClient();
     // This would require a complex query joining segments, members, and orders
     // For now, return placeholder structure
     const { data: segments, error } = await supabase
@@ -341,6 +350,7 @@ export async function getCustomerSegmentPerformance(): Promise<
 
 export async function getActiveExperiments(): Promise<ABTestExperiment[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('ab_test_experiments')
       .select('*')
@@ -360,6 +370,7 @@ export async function assignUserToExperiment(params: {
   sessionId: string;
 }): Promise<string> {
   try {
+    const supabase = createSupabaseClient();
     // Get experiment details
     const { data: experiment, error: expError } = await supabase
       .from('ab_test_experiments')
@@ -406,6 +417,7 @@ export async function getUserExperimentVariant(
   sessionId?: string
 ): Promise<string | null> {
   try {
+    const supabase = createSupabaseClient();
     let query = supabase
       .from('ab_test_assignments')
       .select('variant_name')
@@ -437,6 +449,7 @@ export async function getCartAbandonmentRate(params?: {
   endDate?: string;
 }): Promise<number> {
   try {
+    const supabase = createSupabaseClient();
     let abandonmentQuery = supabase
       .from('cart_abandonment_snapshots')
       .select('id', { count: 'exact', head: true });

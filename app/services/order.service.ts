@@ -9,7 +9,7 @@
  * - Refund workflows
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import { handleServiceError } from '~/utils/error-handler';
 
 // =====================================================
@@ -63,6 +63,7 @@ export interface RefundApproval {
 
 export async function getOrderStates(): Promise<OrderState[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('order_states')
       .select('*')
@@ -79,6 +80,7 @@ export async function getAvailableTransitions(
   currentStateId: string
 ): Promise<OrderStateTransition[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('order_state_transitions')
       .select('*, to_state:order_states!to_state_id(*)')
@@ -101,6 +103,7 @@ export async function transitionOrderState(params: {
   notes?: string;
 }): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     // Log state history
     await supabase
       .from('order_state_history')
@@ -129,6 +132,7 @@ export async function getOrderStateHistory(
   orderId: string
 ): Promise<Array<any>> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('order_state_history')
       .select('*')
@@ -154,6 +158,7 @@ export async function createShipment(params: {
   estimatedDelivery?: string;
 }): Promise<Shipment> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('shipments')
       .insert({
@@ -179,6 +184,7 @@ export async function addItemsToShipment(
   items: Array<{ orderItemId: string; quantity: number }>
 ): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     const shipmentItems = items.map((item) => ({
       shipment_id: shipmentId,
       order_item_id: item.orderItemId,
@@ -200,6 +206,7 @@ export async function markShipmentAsShipped(
   shippedAt?: string
 ): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     const { error } = await supabase
       .from('shipments')
       .update({
@@ -219,6 +226,7 @@ export async function markShipmentAsDelivered(
   deliveredAt?: string
 ): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     const { error } = await supabase
       .from('shipments')
       .update({
@@ -235,6 +243,7 @@ export async function markShipmentAsDelivered(
 
 export async function getOrderShipments(orderId: string): Promise<Shipment[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('shipments')
       .select('*')
@@ -260,6 +269,7 @@ export async function requestRefund(params: {
   refundMethod?: string;
 }): Promise<RefundApproval> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('refund_approvals')
       .insert({
@@ -287,6 +297,7 @@ export async function approveRefund(params: {
   reviewerNotes?: string;
 }): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     // Fetch refund + order context (needed for order lifecycle updates)
     const { data: refund, error: refundReadError } = await supabase
       .from('refund_approvals')
@@ -412,6 +423,7 @@ export async function rejectRefund(params: {
   reviewerNotes?: string;
 }): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     // Fetch refund + order context
     const { data: refund, error: refundReadError } = await supabase
       .from('refund_approvals')
@@ -513,6 +525,7 @@ export async function holdOrder(params: {
   holdUntil?: string;
 }): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     const { error } = await supabase
       .from('orders')
       .update({
@@ -530,6 +543,7 @@ export async function holdOrder(params: {
 
 export async function releaseOrder(orderId: string): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     const { error } = await supabase
       .from('orders')
       .update({

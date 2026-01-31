@@ -3,7 +3,7 @@
  * Handles category data access
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import type { Category } from '~/types/database.types';
 
 export class CategoryService {
@@ -11,6 +11,7 @@ export class CategoryService {
    * Get all active top-level categories
    */
   static async getTopLevelCategories(): Promise<Category[]> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('categories')
       .select('*')
@@ -28,6 +29,7 @@ export class CategoryService {
    * Get subcategories for a parent category
    */
   static async getSubcategories(parentId: string): Promise<Category[]> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('categories')
       .select('*')
@@ -45,6 +47,7 @@ export class CategoryService {
    * Get category by slug
    */
   static async getCategoryBySlug(slug: string): Promise<Category | null> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('categories')
       .select('*')
@@ -62,6 +65,7 @@ export class CategoryService {
    * Get all categories (for admin)
    */
   static async getAllCategories(): Promise<Category[]> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('categories')
       .select('*')

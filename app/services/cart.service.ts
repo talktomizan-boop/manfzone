@@ -3,7 +3,7 @@
  * Handles shopping cart operations
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import type { Cart, CartItem } from '~/types/database.types';
 import type { CartItemWithDetails, CartSummary } from '~/types/domain.types';
 import { InsufficientStockError, ValidationError } from '~/types/domain.types';
@@ -14,6 +14,7 @@ export class CartService {
    * Get or create cart for current user/session
    */
   static async getOrCreateCart(sessionId?: string): Promise<Cart> {
+    const supabase = createSupabaseClient();
     const session = await AuthService.getSession();
     const userId = session?.user.id;
 
@@ -64,6 +65,7 @@ export class CartService {
     quantity: number,
     sessionId?: string
   ): Promise<CartItem> {
+    const supabase = createSupabaseClient();
     if (quantity <= 0) {
       throw new ValidationError('Quantity must be greater than 0');
     }
@@ -169,6 +171,7 @@ export class CartService {
    * Update cart item quantity
    */
   static async updateCartItemQuantity(itemId: string, quantity: number): Promise<void> {
+    const supabase = createSupabaseClient();
     if (quantity <= 0) {
       // Remove item if quantity is 0
       await this.removeFromCart(itemId);
@@ -189,6 +192,7 @@ export class CartService {
    * Remove item from cart
    */
   static async removeFromCart(itemId: string): Promise<void> {
+    const supabase = createSupabaseClient();
     const { error } = await supabase
       .from('cart_items')
       .delete()
@@ -203,6 +207,7 @@ export class CartService {
    * Get cart summary with items
    */
   static async getCartSummary(sessionId?: string): Promise<CartSummary> {
+    const supabase = createSupabaseClient();
     const cart = await this.getOrCreateCart(sessionId);
 
     const { data: items, error } = await supabase
@@ -257,6 +262,7 @@ export class CartService {
    * Clear cart
    */
   static async clearCart(sessionId?: string): Promise<void> {
+    const supabase = createSupabaseClient();
     const cart = await this.getOrCreateCart(sessionId);
 
     const { error } = await supabase

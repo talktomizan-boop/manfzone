@@ -3,7 +3,7 @@
  * Handles all product-related data access and business logic
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import type { Product, ProductImage } from '~/types/database.types';
 import type { ProductWithDetails, ProductCardData, ProductFilterOptions } from '~/types/domain.types';
 import { NotFoundError } from '~/types/domain.types';
@@ -13,6 +13,7 @@ export class ProductService {
    * Get featured products for homepage
    */
   static async getFeaturedProducts(limit: number = 8): Promise<ProductCardData[]> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('products')
       .select(
@@ -53,6 +54,7 @@ export class ProductService {
    * Get products with filtering and pagination
    */
   static async getProducts(options: ProductFilterOptions = {}): Promise<ProductCardData[]> {
+    const supabase = createSupabaseClient();
     const {
       category_id,
       min_price,
@@ -148,6 +150,7 @@ export class ProductService {
    * Get product by slug with full details
    */
   static async getProductBySlug(slug: string): Promise<ProductWithDetails> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('products')
       .select(
@@ -183,6 +186,7 @@ export class ProductService {
    * Get product by ID
    */
   static async getProductById(id: string): Promise<Product | null> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('products')
       .select('*')
@@ -207,6 +211,7 @@ export class ProductService {
    * Get related products
    */
   static async getRelatedProducts(productId: string, categoryId: string, limit: number = 4): Promise<ProductCardData[]> {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('products')
       .select(
