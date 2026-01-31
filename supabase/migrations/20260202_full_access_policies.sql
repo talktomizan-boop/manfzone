@@ -213,6 +213,7 @@ drop policy if exists "Admins can manage reviews" on public.reviews;
 
 create policy "Anyone can view approved reviews"
   on public.reviews for select
+  using (is_approved = true);
   using (status = 'approved');
 
 create policy "Users can create reviews"
