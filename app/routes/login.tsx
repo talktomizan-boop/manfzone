@@ -44,11 +44,12 @@ export async function action({ request }: Route.ActionArgs) {
   // 1) explicit redirectTo (when a guard sent the user to /login?redirectTo=...)
   // 2) role-based default
   //    - admin / super_admin -> /admin/dashboard
-  //    - everyone else -> /
+  //    - everyone else -> /account
   const requested = getRequestedRedirect(request, formData);
-  const roleDefault = isAdminRole(role) ? "/admin/dashboard" : "/dashboard";
+  const roleDefault = isAdminRole(role) ? "/admin/dashboard" : "/account";
+  const requestedPath = requested && requested !== "/" ? requested : null;
   const requestedForRole =
-    isAdminRole(role) && requested && !requested.startsWith("/admin") ? null : requested;
+    isAdminRole(role) && requestedPath && !requestedPath.startsWith("/admin") ? null : requestedPath;
   const destination = safeRedirect(requestedForRole, roleDefault);
 
   // NOTE: Use a raw Response for redirects when auth cookies are involved.
