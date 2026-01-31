@@ -54,9 +54,9 @@ export function Header({ cartItemCount, isLoggedIn, userRole, className }: Heade
   const role = userRole || resolvedRole;
   const count = cartItemCount ?? 0;
 
-  // Customers should land on their dashboard.
+  // Customers should land on their profile page.
   // (Wishlist has its own dedicated icon.)
-  const accountHref = role && ['admin', 'super_admin'].includes(role) ? '/admin/dashboard' : '/dashboard';
+  const accountHref = role && ['admin', 'super_admin'].includes(role) ? '/admin/dashboard' : '/account';
 
   return (
     <header className={classNames(styles.header, className)}>
