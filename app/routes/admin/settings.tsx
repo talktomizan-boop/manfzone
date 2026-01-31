@@ -3,6 +3,7 @@ import { useFetcher } from 'react-router';
 import { AdminLayout } from '~/components/admin-layout/admin-layout';
 import type { Route } from './+types/settings';
 import { createSupabaseServerClient } from '~/lib/supabase';
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import { Button } from '~/components/ui/button/button';
 import styles from './settings.module.css';
@@ -40,19 +41,13 @@ async function requireAdmin(request: Request) {
 
   if (!session) return { ok: false as const, response: redirectToLogin(request, headers) };
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('id, role')
-    .eq('id', session.user.id)
-    .eq('is_active', true)
-    .is('deleted_at', null)
-    .single();
+  const role = await resolveUserRole(supabase, session.user);
 
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  if (!isAdminRole(role)) {
     return { ok: false as const, response: redirectWithHeaders(headers, '/') };
   }
 
-  return { ok: true as const, supabase, headers, profile };
+  return { ok: true as const, supabase, headers, profile: { id: session.user.id, role } };
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
