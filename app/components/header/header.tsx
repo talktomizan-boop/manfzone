@@ -3,7 +3,7 @@
  * Main navigation header with search, cart, and user menu
  */
 
-import { Link, NavLink, useNavigate } from 'react-router';
+import { Link, NavLink, useFetcher, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { Search, ShoppingCart, User, Menu, Heart } from 'lucide-react';
 import { Button } from '~/components/ui/button/button';
@@ -20,6 +20,7 @@ interface HeaderProps {
 
 export function Header({ cartItemCount, isLoggedIn, userRole, className }: HeaderProps) {
   const navigate = useNavigate();
+  const logoutFetcher = useFetcher();
   const [resolvedIsLoggedIn, setResolvedIsLoggedIn] = useState<boolean>(!!isLoggedIn);
   const [resolvedRole, setResolvedRole] = useState<string | undefined>(userRole);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -122,6 +123,17 @@ export function Header({ cartItemCount, isLoggedIn, userRole, className }: Heade
                   <span>Account</span>
                 </Link>
               </Button>
+              <logoutFetcher.Form method="post" action="/logout">
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  size="sm"
+                  className={styles.userButton}
+                  disabled={logoutFetcher.state === 'submitting'}
+                >
+                  Logout
+                </Button>
+              </logoutFetcher.Form>
             </div>
           ) : (
             <div className={styles.authButtons}>

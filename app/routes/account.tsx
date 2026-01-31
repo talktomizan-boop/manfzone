@@ -1,4 +1,4 @@
-import { Form, useActionData, useLoaderData, useNavigation } from 'react-router';
+import { Form, Link, useActionData, useLoaderData, useNavigation } from 'react-router';
 import type { Route } from './+types/account';
 import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
@@ -6,7 +6,8 @@ import { Button } from '~/components/ui/button/button';
 import { Input } from '~/components/ui/input/input';
 import { Label } from '~/components/ui/label/label';
 import { createSupabaseServerClient } from '~/lib/supabase';
-import { redirectToLogin } from '~/lib/redirect';
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
+import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './account.module.css';
 
 export function meta({}: Route.MetaArgs) {
@@ -24,6 +25,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (!session) {
     return redirectToLogin(request, headers);
+  }
+
+  const role = await resolveUserRole(supabase, session.user);
+  if (isAdminRole(role)) {
+    return redirectWithHeaders(headers, '/admin/dashboard');
   }
 
   // NOTE: Some deployments may have an older/minimal `profiles` schema.
@@ -179,6 +185,11 @@ export default function Account() {
         <div className={styles.header}>
           <h1 className={styles.title}>Account</h1>
           <p className={styles.subtitle}>Manage your profile, saved addresses, and password.</p>
+        </div>
+        <div className={styles.quickLinks}>
+          <Link className={styles.linkButton} to="/dashboard">Dashboard</Link>
+          <Link className={styles.linkButton} to="/orders">Orders</Link>
+          <Link className={styles.linkButton} to="/wishlist">Wishlist</Link>
         </div>
 
         {actionData?.error && <div className={styles.error}>{actionData.error}</div>}

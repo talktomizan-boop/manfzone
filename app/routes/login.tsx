@@ -5,6 +5,7 @@ import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { BrandLogo } from "~/components/brand-logo/brand-logo";
 import { createSupabaseServerClient } from "~/lib/supabase";
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { getRequestedRedirect, redirectWithHeaders, safeRedirect } from "~/lib/redirect";
 import styles from "./login.module.css";
 
@@ -37,19 +38,7 @@ export async function action({ request }: Route.ActionArgs) {
   }
 
   // Get user profile to check role
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', authData.user.id)
-    .eq('is_active', true)
-    .is('deleted_at', null)
-    .single();
-
-  if (profileError) {
-    // Don't block login on a role lookup; default to the customer destination.
-    // This also makes it easier to diagnose production RLS/cookie issues.
-    console.error('Login role lookup error:', profileError);
-  }
+  const role = await resolveUserRole(supabase, authData.user);
 
   // Redirect priority:
   // 1) explicit redirectTo (when a guard sent the user to /login?redirectTo=...)
@@ -57,10 +46,10 @@ export async function action({ request }: Route.ActionArgs) {
   //    - admin / super_admin -> /admin/dashboard
   //    - everyone else -> /
   const requested = getRequestedRedirect(request, formData);
-  const roleDefault = (profile?.role === 'admin' || profile?.role === 'super_admin')
-    ? '/admin/dashboard'
-    : '/dashboard';
-  const destination = safeRedirect(requested, roleDefault);
+  const roleDefault = isAdminRole(role) ? "/admin/dashboard" : "/dashboard";
+  const requestedForRole =
+    isAdminRole(role) && requested && !requested.startsWith("/admin") ? null : requested;
+  const destination = safeRedirect(requestedForRole, roleDefault);
 
   // NOTE: Use a raw Response for redirects when auth cookies are involved.
   return redirectWithHeaders(headers, destination);
