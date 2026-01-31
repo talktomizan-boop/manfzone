@@ -1,6 +1,7 @@
 import { AdminLayout } from '~/components/admin-layout/admin-layout';
 import type { Route } from './+types/insights';
 import { createSupabaseServerClient } from '~/lib/supabase';
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './insights.module.css';
 import {
@@ -38,15 +39,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (!session) return redirectToLogin(request, headers);
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('id, role')
-    .eq('id', session.user.id)
-    .eq('is_active', true)
-    .is('deleted_at', null)
-    .single();
+  const role = await resolveUserRole(supabase, session.user);
 
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  if (!isAdminRole(role)) {
     return redirectWithHeaders(headers, '/');
   }
 

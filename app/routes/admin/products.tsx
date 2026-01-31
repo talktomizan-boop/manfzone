@@ -8,6 +8,7 @@ import { Plus, Search, Edit, Trash2, Eye, Star } from "lucide-react";
 import type { Route } from "./+types/products";
 import { createSupabaseClient } from "~/lib/supabase.client";
 import { createSupabaseServerClient } from "~/lib/supabase";
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import styles from "./products.module.css";
 
 export function meta({}: Route.MetaArgs) {
@@ -25,15 +26,9 @@ export async function loader({ request }: Route.LoaderArgs) {
     return redirectToLogin(request, headers);
   }
   
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', session.user.id)
-    .eq('is_active', true)
-    .is('deleted_at', null)
-    .single();
-  
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  const role = await resolveUserRole(supabase, session.user);
+
+  if (!isAdminRole(role)) {
     return redirectWithHeaders(headers, '/');
   }
   

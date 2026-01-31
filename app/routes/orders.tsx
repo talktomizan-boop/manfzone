@@ -3,7 +3,9 @@ import type { Route } from './+types/orders';
 import { Header } from '~/components/header/header';
 import { Footer } from '~/components/footer/footer';
 import { createSupabaseServerClient } from '~/lib/supabase';
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { redirectToLogin } from '~/lib/redirect';
+import { redirectWithHeaders } from "~/lib/redirect";
 import styles from './orders.module.css';
 
 export function meta({}: Route.MetaArgs) {
@@ -21,6 +23,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (!session) {
     return redirectToLogin(request, headers);
+  }
+
+  const role = await resolveUserRole(supabase, session.user);
+  if (isAdminRole(role)) {
+    return redirectWithHeaders(headers, "/admin/orders");
   }
 
   const { data: orders, error } = await supabase

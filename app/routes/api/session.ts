@@ -1,5 +1,6 @@
 import type { Route } from "./+types/session";
 import { createSupabaseServerClient } from "~/lib/supabase";
+import { resolveUserRole } from "~/lib/auth";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const supabaseUrl = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || "";
@@ -27,18 +28,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let role: string | null = null;
-  if (user?.id) {
-    const { data: profile, error } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (!error) {
-      role = (profile as any)?.role ?? null;
-    }
-  }
+  const role = await resolveUserRole(supabase, user ?? null);
 
   const payload = {
     isLoggedIn: Boolean(user),

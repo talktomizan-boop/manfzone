@@ -11,6 +11,7 @@
     "test:watch": "vitest",
     "validate:deploy": "node scripts/validate-deploy.mjs",
     "feature:report": "node scripts/feature-report.mjs",
+    "qa:auth-orders": "node scripts/qa-auth-orders.mjs",
     "smoke": "node scripts/smoke-tests.mjs",
     "verify:ci": "node scripts/ci-verify.mjs"
   },
