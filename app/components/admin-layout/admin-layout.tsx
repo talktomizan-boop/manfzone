@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router";
+import { Link, useFetcher, useLocation } from "react-router";
 import { BrandLogo } from "~/components/brand-logo/brand-logo";
 import {
   LayoutDashboard,
@@ -21,6 +21,7 @@ interface AdminLayoutProps {
 
 export function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
   const location = useLocation();
+  const logoutFetcher = useFetcher();
   
   const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/');
 
@@ -117,9 +118,20 @@ export function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
         </aside>
 
         <main className={styles.main}>
-          <div className={styles.header}>
-            <h2 className={styles.title}>{title}</h2>
-            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+          <div className={styles.headerRow}>
+            <div className={styles.header}>
+              <h2 className={styles.title}>{title}</h2>
+              {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+            </div>
+            <logoutFetcher.Form method="post" action="/logout">
+              <button
+                type="submit"
+                className={styles.logoutButton}
+                disabled={logoutFetcher.state === "submitting"}
+              >
+                Logout
+              </button>
+            </logoutFetcher.Form>
           </div>
           
           <div className={styles.content}>

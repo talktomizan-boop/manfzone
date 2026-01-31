@@ -18,7 +18,69 @@ import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import { createSupabaseServerClient } from '~/lib/supabase';
 
+const fallbackFeaturedProducts = [
+  {
+    id: 'fallback-1',
+    name: 'Smartphone Pro Max',
+    slug: 'smartphone-pro-max',
+    price: 999.0,
+    compare_at_price: 1199.0,
+    image_url: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800',
+    rating_average: 4.6,
+    rating_count: 128,
+    in_stock: true,
+    is_featured: true,
+  },
+  {
+    id: 'fallback-2',
+    name: 'Noise Cancelling Headphones',
+    slug: 'noise-cancelling-headphones',
+    price: 249.0,
+    compare_at_price: 299.0,
+    image_url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800',
+    rating_average: 4.5,
+    rating_count: 86,
+    in_stock: true,
+    is_featured: true,
+  },
+  {
+    id: 'fallback-3',
+    name: 'Smartwatch Active',
+    slug: 'smartwatch-active',
+    price: 179.0,
+    compare_at_price: 219.0,
+    image_url: 'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?w=800',
+    rating_average: 4.4,
+    rating_count: 74,
+    in_stock: true,
+    is_featured: true,
+  },
+  {
+    id: 'fallback-4',
+    name: 'Wireless Speaker',
+    slug: 'wireless-speaker',
+    price: 129.0,
+    compare_at_price: 159.0,
+    image_url: 'https://images.unsplash.com/photo-1512446816042-444d6412672b?w=800',
+    rating_average: 4.3,
+    rating_count: 52,
+    in_stock: true,
+    is_featured: true,
+  },
+];
+
 export async function loader({ request }: Route.LoaderArgs) {
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || '';
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY || '';
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return {
+      homepageConfig: { version: 1, sections: [] },
+      featuredProducts: fallbackFeaturedProducts,
+      error: 'Supabase environment variables are not configured.',
+    };
+  }
+
   try {
     // IMPORTANT: this loader runs on the server.
     // Do NOT rely on modules named *.client.* here (React Router treats them as client-only).
@@ -70,20 +132,24 @@ export async function loader({ request }: Route.LoaderArgs) {
 
     return {
       homepageConfig,
-      featuredProducts,
+      featuredProducts: featuredProducts.length > 0 ? featuredProducts : fallbackFeaturedProducts,
     };
   } catch (error) {
     console.error('Home loader error:', error);
     return {
       homepageConfig: { version: 1, sections: [] },
       error: handleError(error).message,
-      featuredProducts: [],
+      featuredProducts: fallbackFeaturedProducts,
     };
   }
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const { homepageConfig, featuredProducts } = loaderData as any;
+  const { homepageConfig, featuredProducts } =
+    (loaderData as any) ?? {
+      homepageConfig: { version: 1, sections: [] },
+      featuredProducts: fallbackFeaturedProducts,
+    };
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterConsent, setNewsletterConsent] = useState(false);
   const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
