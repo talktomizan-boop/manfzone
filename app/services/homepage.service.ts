@@ -16,7 +16,7 @@
 // NOTE: This service is used by both client components and server loaders.
 // React Router treats "*.client.*" modules as client-only and will stub them out on the server.
 // Therefore: server code must pass an explicit Supabase client (from supabase.ts).
-import { supabase as browserSupabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import { handleError } from '~/utils/error-handler';
 
 // Small helper so this module can run in both environments.
@@ -29,7 +29,7 @@ type AnySupabase = {
 };
 
 function getClient(client?: AnySupabase | null): AnySupabase {
-  return (client ?? (browserSupabase as any)) as AnySupabase;
+  return (client ?? (createSupabaseClient() as any)) as AnySupabase;
 }
 
 // =====================================================

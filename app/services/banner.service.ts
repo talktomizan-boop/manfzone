@@ -3,7 +3,7 @@
  * Handles homepage banner data
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import type { Banner } from '~/types/database.types';
 
 export class BannerService {
@@ -11,6 +11,7 @@ export class BannerService {
    * Get active banners for homepage
    */
   static async getActiveBanners(): Promise<Banner[]> {
+    const supabase = createSupabaseClient();
     const now = new Date().toISOString();
 
     const { data, error } = await supabase

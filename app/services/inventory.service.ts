@@ -9,7 +9,7 @@
  * - Reorder point alerts
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import { handleServiceError } from '~/utils/error-handler';
 
 // =====================================================
@@ -86,6 +86,7 @@ export interface Supplier {
 
 export async function getActiveWarehouses(): Promise<Warehouse[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('warehouses')
       .select('*')
@@ -101,6 +102,7 @@ export async function getActiveWarehouses(): Promise<Warehouse[]> {
 
 export async function getWarehouseById(warehouseId: string): Promise<Warehouse | null> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('warehouses')
       .select('*')
@@ -123,6 +125,7 @@ export async function getInventoryByProduct(
   variantId?: string
 ): Promise<WarehouseInventory[]> {
   try {
+    const supabase = createSupabaseClient();
     let query = supabase
       .from('warehouse_inventory')
       .select('*')
@@ -155,6 +158,7 @@ export async function getTotalAvailableStock(
 
 export async function getLowStockItems(warehouseId?: string): Promise<WarehouseInventory[]> {
   try {
+    const supabase = createSupabaseClient();
     let query = supabase
       .from('warehouse_inventory')
       .select('*')
@@ -187,6 +191,7 @@ export async function reserveStock(params: {
   expiresInMinutes?: number;
 }): Promise<StockReservation> {
   try {
+    const supabase = createSupabaseClient();
     // Calculate expiration time (default 15 minutes)
     const expiresAt = new Date();
     expiresAt.setMinutes(expiresAt.getMinutes() + (params.expiresInMinutes || 15));
@@ -239,6 +244,7 @@ export async function reserveStock(params: {
 
 export async function releaseStockReservation(reservationId: string): Promise<void> {
   try {
+    const supabase = createSupabaseClient();
     // Get reservation details
     const { data: reservation, error: getError } = await supabase
       .from('stock_reservations')
@@ -271,6 +277,7 @@ export async function releaseStockReservation(reservationId: string): Promise<vo
 
 export async function cleanupExpiredReservations(): Promise<number> {
   try {
+    const supabase = createSupabaseClient();
     // Get expired reservations
     const { data: expired, error: getError } = await supabase
       .from('stock_reservations')
@@ -307,6 +314,7 @@ export async function recordInventoryMovement(params: {
   referenceId?: string;
 }): Promise<InventoryMovement> {
   try {
+    const supabase = createSupabaseClient();
     // Get current quantity
     const { data: current, error: currentError } = await supabase
       .from('warehouse_inventory')
@@ -362,6 +370,7 @@ export async function getInventoryMovementHistory(params: {
   limit?: number;
 }): Promise<InventoryMovement[]> {
   try {
+    const supabase = createSupabaseClient();
     let query = supabase
       .from('inventory_movements')
       .select('*')
@@ -394,6 +403,7 @@ export async function getInventoryMovementHistory(params: {
 
 export async function getActiveSuppliers(): Promise<Supplier[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('suppliers')
       .select('*')
@@ -409,6 +419,7 @@ export async function getActiveSuppliers(): Promise<Supplier[]> {
 
 export async function getSuppliersByProduct(productId: string): Promise<Supplier[]> {
   try {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase
       .from('product_suppliers')
       .select(`

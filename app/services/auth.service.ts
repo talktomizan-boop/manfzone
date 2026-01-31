@@ -3,7 +3,7 @@
  * Handles user authentication and session management
  */
 
-import { supabase } from '~/lib/supabase.client';
+import { createSupabaseClient } from '~/lib/supabase.client';
 import type { LoginCredentials, RegisterData, UserProfile } from '~/types/domain.types';
 import { UnauthorizedError, ValidationError } from '~/types/domain.types';
 
@@ -12,6 +12,7 @@ export class AuthService {
    * Register a new user
    */
   static async register(data: RegisterData): Promise<UserProfile> {
+    const supabase = createSupabaseClient();
     const { email, password, full_name, phone } = data;
 
     // Register with Supabase Auth
@@ -63,6 +64,7 @@ export class AuthService {
    * Login user
    */
   static async login(credentials: LoginCredentials): Promise<UserProfile> {
+    const supabase = createSupabaseClient();
     const { email, password } = credentials;
 
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -92,6 +94,7 @@ export class AuthService {
    * Logout user
    */
   static async logout(): Promise<void> {
+    const supabase = createSupabaseClient();
     const { error } = await supabase.auth.signOut();
 
     if (error) {
@@ -103,6 +106,7 @@ export class AuthService {
    * Get current user session
    */
   static async getSession() {
+    const supabase = createSupabaseClient();
     const { data, error } = await supabase.auth.getSession();
 
     if (error) {
@@ -116,6 +120,7 @@ export class AuthService {
    * Get current user profile
    */
   static async getCurrentUserProfile(): Promise<UserProfile | null> {
+    const supabase = createSupabaseClient();
     const session = await this.getSession();
 
     if (!session) {
@@ -150,6 +155,7 @@ export class AuthService {
    * Request password reset
    */
   static async requestPasswordReset(email: string): Promise<void> {
+    const supabase = createSupabaseClient();
     const { error } = await supabase.auth.resetPasswordForEmail(email);
 
     if (error) {
@@ -161,6 +167,7 @@ export class AuthService {
    * Update password
    */
   static async updatePassword(newPassword: string): Promise<void> {
+    const supabase = createSupabaseClient();
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     });
@@ -174,6 +181,7 @@ export class AuthService {
    * Update user profile
    */
   static async updateProfile(data: Partial<UserProfile>): Promise<UserProfile> {
+    const supabase = createSupabaseClient();
     const session = await this.getSession();
 
     if (!session) {
