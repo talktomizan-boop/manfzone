@@ -2,6 +2,24 @@ import type { Route } from "./+types/session";
 import { createSupabaseServerClient } from "~/lib/supabase";
 
 export async function loader({ request }: Route.LoaderArgs) {
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || "";
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY || "";
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    const headers = new Headers();
+    headers.set("Content-Type", "application/json");
+    headers.set("Cache-Control", "no-store");
+    return new Response(
+      JSON.stringify({
+        isLoggedIn: false,
+        userId: null,
+        role: null,
+        error: "Supabase environment variables are not configured.",
+      }),
+      { status: 200, headers }
+    );
+  }
+
   const { supabase, headers } = createSupabaseServerClient(request);
 
   // Use getUser() (server-verified) instead of getSession().

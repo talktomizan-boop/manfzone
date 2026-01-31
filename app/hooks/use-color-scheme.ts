@@ -31,6 +31,34 @@ export function useSafeColorScheme() {
   });
 
   useEffect(() => {
+    let unsubscribe: (() => void) | undefined;
+    let intervalId: number | undefined;
+
+    const attach = () => {
+      const api = getColorSchemeApi();
+      if (!api) return false;
+      setState(api.currentState);
+      unsubscribe = api.subscribe((next) => setState(next));
+      return true;
+    };
+
+    if (attach()) {
+      return () => {
+        unsubscribe?.();
+      };
+    }
+
+    intervalId = window.setInterval(() => {
+      if (attach() && intervalId) {
+        window.clearInterval(intervalId);
+        intervalId = undefined;
+      }
+    }, 50);
+
+    return () => {
+      if (intervalId) window.clearInterval(intervalId);
+      unsubscribe?.();
+    };
     const api = getColorSchemeApi();
     if (!api) return;
     setState(api.currentState);
