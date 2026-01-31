@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import type { Route } from "./+types/dashboard";
 import { createSupabaseServerClient } from "~/lib/supabase";
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { redirectToLogin, redirectWithHeaders } from "~/lib/redirect";
 import styles from "./dashboard.module.css";
 
@@ -36,15 +37,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   }
 
   // Check if user has admin role
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role')
-    .eq('id', session.user.id)
-    .eq('is_active', true)
-    .is('deleted_at', null)
-    .single();
+  const role = await resolveUserRole(supabase, session.user);
 
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  if (!isAdminRole(role)) {
     return redirectWithHeaders(headers, '/');
   }
 
