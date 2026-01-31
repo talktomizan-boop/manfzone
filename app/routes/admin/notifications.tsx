@@ -2,6 +2,7 @@ import { useFetcher } from 'react-router';
 import { AdminLayout } from '~/components/admin-layout/admin-layout';
 import type { Route } from './+types/notifications';
 import { createSupabaseServerClient } from '~/lib/supabase';
+import { isAdminRole, resolveUserRole } from "~/lib/auth";
 import { redirectToLogin, redirectWithHeaders } from '~/lib/redirect';
 import styles from './notifications.module.css';
 
@@ -20,22 +21,17 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (!session) return redirectToLogin(request, headers);
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('id, role')
-    .eq('id', session.user.id)
-    .eq('is_active', true)
-    .is('deleted_at', null)
-    .single();
+  const role = await resolveUserRole(supabase, session.user);
+  const profileId = session.user.id;
 
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  if (!isAdminRole(role)) {
     return redirectWithHeaders(headers, '/');
   }
 
   const { data: notifications } = await supabase
     .from('admin_notifications')
     .select('id, notification_type, title, message, action_url, priority, is_read, created_at')
-    .eq('recipient_user_id', profile.id)
+    .eq('recipient_user_id', profileId)
     .order('created_at', { ascending: false })
     .limit(50);
 
@@ -56,13 +52,10 @@ export async function action({ request }: Route.ActionArgs) {
 
   if (!session) return redirectToLogin(request, headers);
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('id, role')
-    .eq('id', session.user.id)
-    .single();
+  const role = await resolveUserRole(supabase, session.user);
+  const profileId = session.user.id;
 
-  if (!profile || !['admin', 'super_admin'].includes(profile.role)) {
+  if (!isAdminRole(role)) {
     return { ok: false, error: 'Not allowed' };
   }
 
@@ -71,7 +64,7 @@ export async function action({ request }: Route.ActionArgs) {
       .from('admin_notifications')
       .update({ is_read: true, read_at: new Date().toISOString() })
       .eq('id', notificationId)
-      .eq('recipient_user_id', profile.id);
+      .eq('recipient_user_id', profileId);
     return { ok: true };
   }
 
@@ -79,7 +72,7 @@ export async function action({ request }: Route.ActionArgs) {
     await supabase
       .from('admin_notifications')
       .update({ is_read: true, read_at: new Date().toISOString() })
-      .eq('recipient_user_id', profile.id)
+      .eq('recipient_user_id', profileId)
       .eq('is_read', false);
     return { ok: true };
   }

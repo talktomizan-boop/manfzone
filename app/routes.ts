@@ -24,6 +24,7 @@ export default [
   route("login", "routes/login.tsx"),
   route("register", "routes/register.tsx"),
   route("forgot-password", "routes/forgot-password.tsx"),
+  route("logout", "routes/logout.tsx"),
 
   // Shop
   route("products", "routes/products.tsx"),
