@@ -14,7 +14,7 @@ import "./styles/tokens/decorations.css";
 import "./styles/tokens/spacings.css";
 import "./styles/tokens/typography.css";
 import "./styles/theme.css";
-import { useColorScheme } from "@dazl/color-scheme/react";
+import { useSafeColorScheme } from "./hooks/use-color-scheme";
 import favicon from "/favicon.png";
 import { captureError, initSentryBrowser } from "~/lib/sentry.client";
 
@@ -55,7 +55,7 @@ export async function loader({}: Route.LoaderArgs) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { rootCssClass, resolvedScheme } = useColorScheme();
+  const { rootCssClass, resolvedScheme } = useSafeColorScheme();
   const data = useLoaderData<typeof loader>();
   const envScript = `window.ENV = ${JSON.stringify(data?.ENV || {}).replace(/</g, "\\u003c")};`;
   return (
