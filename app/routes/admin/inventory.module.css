@@ -1,0 +1,124 @@
+.card {
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-3);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.warehouseCard {
+  border: 1px solid var(--color-neutral-3);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--color-neutral-0);
+}
+
+.warehouseName {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.warehouseMeta {
+  color: var(--color-neutral-10);
+  font-size: 0.85rem;
+}
+
+.badge {
+  display: inline-flex;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--color-neutral-2);
+}
+
+.tableGrid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.table {
+  display: grid;
+  gap: 8px;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-neutral-10);
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-neutral-3);
+}
+
+.tableHeaderWide {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-neutral-10);
+}
+
+.tableRowWide {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-neutral-3);
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.empty {
+  padding: 12px 0;
+  color: var(--color-neutral-10);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .tableHeader div:nth-child(4),
+  .tableRow div:nth-child(4) {
+    display: none;
+  }
+
+  .tableHeaderWide,
+  .tableRowWide {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .tableHeaderWide div:nth-child(4),
+  .tableHeaderWide div:nth-child(5),
+  .tableRowWide div:nth-child(4),
+  .tableRowWide div:nth-child(5) {
+    display: none;
+  }
+}
