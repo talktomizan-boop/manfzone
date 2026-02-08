@@ -239,6 +239,64 @@ export function renderInvoiceEmail(params: {
   `.trim();
 }
 
+export function renderCartAbandonmentEmail(params: {
+  customerName?: string;
+  items: Array<{ name: string; quantity: number; unitPrice: number }>;
+  subtotal: number;
+  appUrl: string;
+  resumeUrl: string;
+}) {
+  const { customerName, items, subtotal, appUrl, resumeUrl } = params;
+
+  const rows = items
+    .map(
+      (i) => `
+      <tr>
+        <td style="padding:10px 8px; border-bottom:1px solid #e5e7eb">${escapeHtml(i.name)}</td>
+        <td style="padding:10px 8px; border-bottom:1px solid #e5e7eb; text-align:right">${i.quantity}</td>
+        <td style="padding:10px 8px; border-bottom:1px solid #e5e7eb; text-align:right">${money(i.unitPrice)}</td>
+        <td style="padding:10px 8px; border-bottom:1px solid #e5e7eb; text-align:right">${money(
+          i.unitPrice * i.quantity
+        )}</td>
+      </tr>
+    `
+    )
+    .join('');
+
+  return `
+  <div style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:#111; line-height:1.5">
+    <h2 style="margin:0 0 12px">Still thinking it over${customerName ? `, ${escapeHtml(customerName)}` : ''}?</h2>
+    <p style="margin:0 0 16px">Your cart is saved at ${escapeHtml(appUrl)}. Complete your checkout before items sell out.</p>
+    <table style="width:100%; border-collapse:collapse; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden">
+      <thead>
+        <tr style="background:#f9fafb">
+          <th style="text-align:left; padding:10px 8px; border-bottom:1px solid #e5e7eb">Item</th>
+          <th style="text-align:right; padding:10px 8px; border-bottom:1px solid #e5e7eb">Qty</th>
+          <th style="text-align:right; padding:10px 8px; border-bottom:1px solid #e5e7eb">Unit</th>
+          <th style="text-align:right; padding:10px 8px; border-bottom:1px solid #e5e7eb">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows || `<tr><td colspan="4" style="padding:12px; text-align:center">Your cart items are waiting.</td></tr>`}
+      </tbody>
+    </table>
+    <div style="margin-top:16px; display:flex; justify-content:flex-end">
+      <table style="width:260px; border-collapse:collapse">
+        <tr>
+          <td style="padding:10px 0; font-weight:700; border-top:1px solid #e5e7eb">Subtotal</td>
+          <td style="padding:10px 0; text-align:right; font-weight:700; border-top:1px solid #e5e7eb">${money(
+            subtotal
+          )}</td>
+        </tr>
+      </table>
+    </div>
+    <div style="margin-top:16px">
+      <a href="${escapeAttr(resumeUrl)}" style="display:inline-block; padding:10px 16px; background:#2563eb; color:#fff; text-decoration:none; border-radius:8px">Resume checkout</a>
+    </div>
+  </div>
+  `.trim();
+}
+
 function escapeHtml(s: string) {
   return String(s)
     .replace(/&/g, '&amp;')

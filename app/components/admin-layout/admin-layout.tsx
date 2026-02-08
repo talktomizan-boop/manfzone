@@ -2,6 +2,7 @@ import { Link, useFetcher, useLocation } from "react-router";
 import { BrandLogo } from "~/components/brand-logo/brand-logo";
 import {
   LayoutDashboard,
+  Warehouse,
   Package,
   Tags,
   ShoppingCart,
@@ -10,6 +11,7 @@ import {
   Settings,
   BarChart3,
   Bell,
+  Megaphone,
 } from "lucide-react";
 import styles from "./admin-layout.module.css";
 
@@ -57,6 +59,24 @@ export function AdminLayout({ children, title, subtitle }: AdminLayoutProps) {
                 >
                   <Bell />
                   Notifications
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link
+                  to="/admin/inventory"
+                  className={`${styles.navLink} ${isActive('/admin/inventory') ? styles.active : ''}`}
+                >
+                  <Warehouse />
+                  Inventory
+                </Link>
+              </li>
+              <li className={styles.navItem}>
+                <Link
+                  to="/admin/marketing"
+                  className={`${styles.navLink} ${isActive('/admin/marketing') ? styles.active : ''}`}
+                >
+                  <Megaphone />
+                  Marketing
                 </Link>
               </li>
               <li className={styles.navItem}>
