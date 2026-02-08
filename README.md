@@ -354,6 +354,36 @@ APP_URL=http://localhost:5173
 NODE_ENV=development
 ```
 
+#### Environment Variables (Complete List)
+
+> ✅ **Never expose `SUPABASE_SERVICE_ROLE_KEY` in the browser.** It must only be used server-side (Render env vars or `.env` for local server runtime).
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `SUPABASE_URL` | ✅ | Supabase project URL (recommended) |
+| `SUPABASE_ANON_KEY` | ✅ | Supabase anonymous key for client-side access |
+| `SUPABASE_SERVICE_ROLE_KEY` | ⚠️ | Server-only key for secure admin/SMTP workflows |
+| `APP_URL` | ✅ | Public app URL (local: `http://localhost:5173`) |
+| `NODE_ENV` | ✅ | Runtime mode (`development`, `production`) |
+| `APP_VERSION` | Optional | Build/commit version tag |
+| `EMAIL_PROVIDER` | Optional | `supabase_resend` or `smtp` |
+| `EMAIL_FROM` | Optional | Default sender address |
+| `SMTP_HOST` | Optional | SMTP server host (if using SMTP) |
+| `SMTP_PORT` | Optional | SMTP server port |
+| `SMTP_USER` | Optional | SMTP auth user |
+| `SMTP_PASS` | Optional | SMTP auth password |
+| `VITE_SENTRY_DSN` | Optional | Sentry DSN for client-side monitoring |
+| `VITE_SENTRY_ENVIRONMENT` | Optional | Sentry environment name |
+| `VITE_SENTRY_TRACES_SAMPLE_RATE` | Optional | Sentry tracing sampling ratio |
+| `VITE_SENTRY_RELEASE` | Optional | Sentry release version |
+| `SMOKE_TEST_SECRET` | Optional | Required for `/api/invoice-preview` |
+| `SMOKE_TEST_COUPON_CODE` | Optional | Coupon used by smoke tests |
+| `SMOKE_TEST_NEWSLETTER` | Optional | Enable newsletter smoke test |
+| `TEST_EMAIL` / `TEST_PASSWORD` | Optional | Smoke test account (wishlist/login) |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Optional | QA script admin credentials |
+| `USER_EMAIL` / `USER_PASSWORD` | Optional | QA script user credentials |
+| `CRON_SECRET` | Optional | Header secret for edge job runners |
+
 4. **Run the development server**
 
 ```bash
@@ -1009,4 +1039,3 @@ A new Supabase Edge Function processes the queue:
 
 To run on a schedule, configure a Supabase scheduled trigger (or external cron) to POST:
 - `/functions/v1/process-email-outbox` with `x-cron-secret`
-
