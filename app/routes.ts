@@ -64,6 +64,8 @@ export default [
     route("settings", "routes/admin/settings.tsx"),
     route("insights", "routes/admin/insights.tsx"),
     route("notifications", "routes/admin/notifications.tsx"),
+    route("inventory", "routes/admin/inventory.tsx"),
+    route("marketing", "routes/admin/marketing.tsx"),
   ]),
 
   // Catch-all
