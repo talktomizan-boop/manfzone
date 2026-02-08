@@ -382,6 +382,7 @@ NODE_ENV=development
 | `TEST_EMAIL` / `TEST_PASSWORD` | Optional | Smoke test account (wishlist/login) |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Optional | QA script admin credentials |
 | `USER_EMAIL` / `USER_PASSWORD` | Optional | QA script user credentials |
+| `ADMIN_EMAILS` | Optional | Comma-separated admin allowlist for role fallback (e.g. `admin@manafzone.com`) |
 | `CRON_SECRET` | Optional | Header secret for edge job runners |
 
 4. **Run the development server**
@@ -734,10 +735,11 @@ Centralized error handling with custom error classes:
 
 ### Admin Access
 
-Default admin accounts must be created manually in Supabase:
+Default admin accounts can be created manually in Supabase or via the allowlist:
 
 1. Create user via Supabase Auth
-2. Update `profiles` table to set `role = 'admin'`
+2. Either update `profiles` to set `role = 'admin'` **or** add the email to `admin_emails` (see migrations).
+3. (Optional) Set `ADMIN_EMAILS` in your Render/.env to auto-elevate new logins.
 
 Never expose admin registration publicly.
 

@@ -5,7 +5,7 @@ import { Input } from "~/components/ui/input/input";
 import { Label } from "~/components/ui/label/label";
 import { BrandLogo } from "~/components/brand-logo/brand-logo";
 import { createSupabaseServerClient } from "~/lib/supabase";
-import { isAdminRole, resolveUserRole } from "~/lib/auth";
+import { ensureProfileForUser, isAdminRole, resolveUserRole } from "~/lib/auth";
 import { getRequestedRedirect, redirectWithHeaders, safeRedirect } from "~/lib/redirect";
 import styles from "./login.module.css";
 
@@ -37,8 +37,10 @@ export async function action({ request }: Route.ActionArgs) {
     return { error: 'Invalid email or password' };
   }
 
+  const ensuredRole = await ensureProfileForUser(supabase, authData.user);
+
   // Get user profile to check role
-  const role = await resolveUserRole(supabase, authData.user);
+  const role = ensuredRole || (await resolveUserRole(supabase, authData.user));
 
   // Redirect priority:
   // 1) explicit redirectTo (when a guard sent the user to /login?redirectTo=...)
@@ -46,7 +48,7 @@ export async function action({ request }: Route.ActionArgs) {
   //    - admin / super_admin -> /admin/dashboard
   //    - everyone else -> /account
   const requested = getRequestedRedirect(request, formData);
-  const roleDefault = isAdminRole(role) ? "/admin/dashboard" : "/account";
+  const roleDefault = isAdminRole(role) ? "/admin/dashboard" : "/";
   const requestedPath = requested && requested !== "/" ? requested : null;
   const requestedForRole =
     isAdminRole(role) && requestedPath && !requestedPath.startsWith("/admin") ? null : requestedPath;
