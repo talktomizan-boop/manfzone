@@ -66,11 +66,11 @@ export function Header({ cartItemCount, isLoggedIn, userRole, className }: Heade
 
         {/* Main Navigation */}
         <nav className={styles.nav}>
+          <NavLink to="/products" className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}>
+            Shop
+          </NavLink>
           <NavLink to="/" end className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}>
             Home
-          </NavLink>
-          <NavLink to="/products" className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}>
-            Products
           </NavLink>
           <NavLink to="/categories" className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}>
             Categories
@@ -78,6 +78,11 @@ export function Header({ cartItemCount, isLoggedIn, userRole, className }: Heade
           <NavLink to="/new-arrivals" className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}>
             New Arrivals
           </NavLink>
+          {loggedIn && !(['admin', 'super_admin'].includes(role || '')) && (
+            <NavLink to="/orders" className={({ isActive }) => (isActive ? styles.navLinkActive : styles.navLink)}>
+              Orders
+            </NavLink>
+          )}
         </nav>
 
         {/* Search Bar */}

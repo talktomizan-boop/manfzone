@@ -13,6 +13,31 @@ const adminEmail = process.env.ADMIN_EMAIL || "";
 const adminPassword = process.env.ADMIN_PASSWORD || "";
 const userEmail = process.env.USER_EMAIL || "";
 const userPassword = process.env.USER_PASSWORD || "";
+const BASE_URL = process.env.BASE_URL || process.env.APP_URL || "";
+
+class CookieJar {
+  constructor() {
+    this.cookies = new Map();
+  }
+  addFromSetCookie(setCookie) {
+    if (!setCookie) return;
+    const parts = Array.isArray(setCookie) ? setCookie : [setCookie];
+    for (const sc of parts) {
+      const first = sc.split(";")[0];
+      const eq = first.indexOf("=");
+      if (eq > 0) {
+        const name = first.slice(0, eq).trim();
+        const value = first.slice(eq + 1).trim();
+        this.cookies.set(name, value);
+      }
+    }
+  }
+  header() {
+    return Array.from(this.cookies.entries())
+      .map(([k, v]) => `${k}=${v}`)
+      .join("; ");
+  }
+}
 
 function logLine(label, ok, details = "") {
   const status = ok ? "PASS" : "FAIL";
@@ -75,3 +100,81 @@ if (!adminEmail || !adminPassword || !userEmail || !userPassword) {
 
 await runUserChecks("Admin", adminEmail, adminPassword, "admin", true);
 await runUserChecks("User", userEmail, userPassword, "customer", false);
+
+if (BASE_URL) {
+  const base = new URL(BASE_URL);
+  const expectRedirect = async (label, res, expectedPrefix) => {
+    const location = res.headers.get("location") || "";
+    const ok = res.status === 302 && location.startsWith(expectedPrefix);
+    logLine(label, ok, ok ? location : `status=${res.status} location=${location}`);
+  };
+
+  // Protected route checks (unauthenticated)
+  {
+    const res = await fetch(new URL("/admin/dashboard", base).toString(), { redirect: "manual" });
+    await expectRedirect("Admin route guard", res, "/login");
+  }
+  {
+    const res = await fetch(new URL("/account", base).toString(), { redirect: "manual" });
+    await expectRedirect("Account route guard", res, "/login");
+  }
+
+  // Login routing + session persistence
+  {
+    const jar = new CookieJar();
+    const form = new URLSearchParams();
+    form.set("email", adminEmail);
+    form.set("password", adminPassword);
+
+    const res = await fetch(new URL("/login", base).toString(), {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: form.toString(),
+      redirect: "manual",
+    });
+    jar.addFromSetCookie(res.headers.get("set-cookie"));
+    await expectRedirect("Admin login redirect", res, "/admin/dashboard");
+
+    const sessionRes = await fetch(new URL("/api/session", base).toString(), {
+      headers: { Cookie: jar.header(), Accept: "application/json" },
+    });
+    const sessionJson = await sessionRes.json().catch(() => null);
+    logLine("Admin session persists", sessionJson?.isLoggedIn === true, JSON.stringify(sessionJson));
+
+    const logoutRes = await fetch(new URL("/logout", base).toString(), {
+      method: "POST",
+      headers: { Cookie: jar.header() },
+      redirect: "manual",
+    });
+    jar.addFromSetCookie(logoutRes.headers.get("set-cookie"));
+    await expectRedirect("Admin logout redirect", logoutRes, "/");
+
+    const sessionAfter = await fetch(new URL("/api/session", base).toString(), {
+      headers: { Cookie: jar.header(), Accept: "application/json" },
+    });
+    const sessionAfterJson = await sessionAfter.json().catch(() => null);
+    logLine("Admin logout clears", sessionAfterJson?.isLoggedIn === false, JSON.stringify(sessionAfterJson));
+  }
+
+  {
+    const jar = new CookieJar();
+    const form = new URLSearchParams();
+    form.set("email", userEmail);
+    form.set("password", userPassword);
+
+    const res = await fetch(new URL("/login", base).toString(), {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: form.toString(),
+      redirect: "manual",
+    });
+    jar.addFromSetCookie(res.headers.get("set-cookie"));
+    await expectRedirect("User login redirect", res, "/");
+
+    const sessionRes = await fetch(new URL("/api/session", base).toString(), {
+      headers: { Cookie: jar.header(), Accept: "application/json" },
+    });
+    const sessionJson = await sessionRes.json().catch(() => null);
+    logLine("User session persists", sessionJson?.isLoggedIn === true, JSON.stringify(sessionJson));
+  }
+}

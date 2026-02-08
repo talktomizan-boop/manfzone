@@ -1,6 +1,6 @@
 import type { Route } from "./+types/session";
 import { createSupabaseServerClient } from "~/lib/supabase";
-import { resolveUserRole } from "~/lib/auth";
+import { ensureProfileForUser, resolveUserRole } from "~/lib/auth";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const supabaseUrl = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || "";
@@ -28,7 +28,8 @@ export async function loader({ request }: Route.LoaderArgs) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const role = await resolveUserRole(supabase, user ?? null);
+  const ensuredRole = await ensureProfileForUser(supabase, user ?? null);
+  const role = ensuredRole || (await resolveUserRole(supabase, user ?? null));
 
   const payload = {
     isLoggedIn: Boolean(user),

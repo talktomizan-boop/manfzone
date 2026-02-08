@@ -436,6 +436,10 @@ export default function Cart({ loaderData }: Route.ComponentProps) {
                   <span>৳{subtotal.toFixed(2)}</span>
                 </div>
 
+                <Link to="/checkout" className={styles.summaryCta}>
+                  <Button size="lg">Proceed to checkout</Button>
+                </Link>
+
                 <Link to="/products" className={styles.summaryCta}>
                   <Button size="lg">Continue Shopping</Button>
                 </Link>
