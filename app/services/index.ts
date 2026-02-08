@@ -1,0 +1,11 @@
+export * as AdminService from './admin.service';
+export * as AnalyticsService from './analytics.service';
+export * as AuthService from './auth.service';
+export * as BannerService from './banner.service';
+export * as CartService from './cart.service';
+export * as CategoryService from './category.service';
+export * as HomepageService from './homepage.service';
+export * as InventoryService from './inventory.service';
+export * as MarketingService from './marketing.service';
+export * as OrderService from './order.service';
+export * as ProductService from './product.service';
