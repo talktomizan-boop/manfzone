@@ -69,7 +69,7 @@ describe('refund workflow (admin approval)', () => {
     const supabaseMock = createSupabaseMock();
 
     vi.resetModules();
-    vi.doMock('~/lib/supabase.client', () => ({ supabase: supabaseMock }));
+    vi.doMock('~/lib/supabase.client', () => ({ supabase: supabaseMock, createSupabaseClient: () => supabaseMock }));
 
     const mod = await import('~/services/order.service');
 

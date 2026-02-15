@@ -24,6 +24,9 @@ function readEnv(key: string): string {
   if (typeof process !== 'undefined' && process?.env && typeof process.env[key] === 'string') {
     return process.env[key] as string;
   }
+  if (typeof process !== 'undefined' && process?.env && typeof process.env[`VITE_${key}`] === 'string') {
+    return process.env[`VITE_${key}`] as string;
+  }
 
   // 2) Browser: window.ENV injected by root loader
   if (typeof window !== 'undefined' && window.ENV && typeof window.ENV[key] === 'string') {
