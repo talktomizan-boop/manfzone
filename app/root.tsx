@@ -39,9 +39,9 @@ export const links: Route.LinksFunction = () => [
 // Provide safe, public runtime env to the browser bundle.
 // (Only values that are safe to expose to the client.)
 export async function loader({}: Route.LoaderArgs) {
-  const SUPABASE_URL = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || "";
-  const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY || "";
-  const APP_URL = process.env.APP_URL || "";
+  const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || "";
+  const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY || "";
+  const APP_URL = process.env.APP_URL || process.env.VITE_APP_URL || "";
   const APP_VERSION = process.env.APP_VERSION || process.env.RENDER_GIT_COMMIT || "";
 
   return {

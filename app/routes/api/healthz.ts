@@ -27,9 +27,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   const envSummary = {
     nodeEnv: process.env.NODE_ENV || "development",
     appVersion: process.env.APP_VERSION || process.env.RENDER_GIT_COMMIT || "",
-    appUrl: Boolean(process.env.APP_URL),
-    supabaseUrl: Boolean(process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL),
-    supabaseAnonKey: Boolean(process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY),
+    appUrl: Boolean(process.env.APP_URL || process.env.VITE_APP_URL),
+    supabaseUrl: Boolean(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_PROJECT_URL),
+    supabaseAnonKey: Boolean(process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY),
     supabaseServiceRoleKey: Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY),
     sentryDsn: Boolean(process.env.VITE_SENTRY_DSN || process.env.SENTRY_DSN),
     emailProvider: process.env.EMAIL_PROVIDER || "smtp",

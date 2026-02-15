@@ -35,7 +35,7 @@ function getTransport(): { transporter: nodemailer.Transporter; from: string } |
 }
 
 async function sendEmailViaSupabaseResend({ to, subject, html }: SendEmailArgs) {
-  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_PROJECT_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const from = process.env.EMAIL_FROM;
 

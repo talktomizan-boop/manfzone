@@ -198,3 +198,28 @@ create policy "Users/Admins can create order items"
       )
     )
   );
+
+-- 8) Schema hardening for role-based access
+alter table if exists public.profiles
+  add column if not exists role text default 'customer';
+
+alter table if exists public.profiles
+  add column if not exists is_active boolean default true;
+
+-- 9) Storage bucket + policies for product images (idempotent)
+insert into storage.buckets (id, name, public)
+values ('product-images', 'product-images', true)
+on conflict (id) do nothing;
+
+-- Public can read product images
+ drop policy if exists "Public read product images" on storage.objects;
+create policy "Public read product images"
+  on storage.objects for select
+  using (bucket_id = 'product-images');
+
+-- Admins can upload/update/delete product images
+ drop policy if exists "Admins manage product images" on storage.objects;
+create policy "Admins manage product images"
+  on storage.objects for all
+  using (bucket_id = 'product-images' and public.is_admin())
+  with check (bucket_id = 'product-images' and public.is_admin());

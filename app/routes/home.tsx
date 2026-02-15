@@ -70,8 +70,8 @@ const fallbackFeaturedProducts = [
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const supabaseUrl = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || '';
-  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY || '';
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_PROJECT_URL || '';
+  const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_API_KEY || '';
 
   if (!supabaseUrl || !supabaseAnonKey) {
     return {

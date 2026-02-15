@@ -11,7 +11,7 @@ let cached: ReturnType<typeof createClient> | null = null;
 export function getSupabaseServiceClient() {
   if (cached) return cached;
 
-  const url = process.env.SUPABASE_URL || process.env.SUPABASE_PROJECT_URL;
+  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_PROJECT_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceKey) {
