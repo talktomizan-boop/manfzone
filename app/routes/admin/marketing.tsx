@@ -130,7 +130,7 @@ export async function action({ request }: Route.ActionArgs) {
       items,
       subtotal,
       appUrl,
-      resumeUrl: `${appUrl.replace(/\\/$/, '')}/cart`,
+      resumeUrl: `${appUrl.replace(/\/$/, '')}/cart`,
     });
 
     await sendEmail({
